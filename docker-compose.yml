@@ -1,5 +1,7 @@
 ---
 version: '3.8'
+networks:
+  apps:
 services:
   nginx:
     container_name: nginx 
