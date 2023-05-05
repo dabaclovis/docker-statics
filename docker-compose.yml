@@ -1,0 +1,41 @@
+---
+version: '3.8'
+services:
+  nginx:
+    container_name: nginx 
+    ports:
+      - 8085:80 
+    restart: unless-stopped
+    networks:
+      - apps
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: nginx
+  jenkins:
+    container_name: jenkins 
+    volumes:
+      - ~/jenkins:/var/jenkins_home/workspace/
+    networks:
+      - apps
+    restart: unless-stopped
+    ports:
+      - 8089:8080
+    build: 
+      context: .
+      dockerfile: Dockerfile
+      target: jenkins
+  tomcat:
+    container_name: tomcat 
+    networks:
+      - apps 
+    ports:
+      - 9005:8080
+    restart: unless-stopped 
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: tomcat9
+
+
+...
